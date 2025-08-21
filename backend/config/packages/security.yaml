@@ -7,7 +7,7 @@ security:
         users_in_memory: { memory: null }
         app_user_provider:
           entity:
-            class: App\Restaurant\Domain\Model\User
+            class: App\User\Domain\Model\User
             property: email
     firewalls:
         dev:

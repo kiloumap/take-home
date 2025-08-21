@@ -15,19 +15,25 @@ doctrine:
         report_fields_where_declared: true
         validate_xml_mapping: true
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
-        auto_mapping: true
+        auto_mapping: false
         mappings:
-            Default:
+#            Default:
+#                is_bundle: false
+#                dir: '%kernel.project_dir%/src/Default/Domain/Model'
+#                prefix: 'App\Default\Domain\Model'
+#                alias: DefaultService
+            Shared:
+                type: xml
+                dir: '%kernel.project_dir%/src/Shared/Infrastructure/Persistence/Doctrine/Mapping'
+                prefix: 'App'
+                alias: Shared
                 is_bundle: false
-                dir: '%kernel.project_dir%/src/Default/Domain/Model'
-                prefix: 'App\Default\Domain\Model'
-                alias: Default
-            Restaurant:
+            User:
+                type: xml
+                dir: '%kernel.project_dir%/src/User/Infrastructure/Persistence/Doctrine/Mapping'
+                prefix: 'App'
+                alias: User
                 is_bundle: false
-                dir: '%kernel.project_dir%/src/Restaurant/Domain/Model'
-                prefix: 'App\Restaurant\Domain\Model'
-                alias: Restaurant
-                type: attribute
         dql:
             numeric_functions:
                 uuid: 'Ramsey\Uuid\Doctrine\Functions\UuidFunction'

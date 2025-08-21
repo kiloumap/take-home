@@ -3,18 +3,8 @@ default:
     path: ../src/Default/Application/Controller/
     namespace: App\Default\Application\Controller
   type: attribute
-menu:
+user:
   resource:
-    path: ../src/Menu/Application/Controller/
-    namespace: App\Menu\Application\Controller
-  type: attribute
-restaurant:
-  resource:
-    path: ../src/Restaurant/Application/Controller/
-    namespace: App\Restaurant\Application\Controller
-  type: attribute
-search:
-  resource:
-    path: ../src/Search/Application/Controller/
-    namespace: App\Search\Application\Controller
+    path: ../src/User/Application/Controller/
+    namespace: App\User\Application\Controller
   type: attribute

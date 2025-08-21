@@ -2,9 +2,8 @@ doctrine_migrations:
     # List of namespace/path pairs to search for migrations, at least one required
     migrations_paths:
         'Migrations': '%kernel.project_dir%/DoctrineMigrations'
-        'MenuMigrations': '%kernel.project_dir%/src/Menu/Infrastructure/DoctrineMigrations'
-        'RestaurantMigrations': '%kernel.project_dir%/src/Restaurant/Infrastructure/DoctrineMigrations'
         'DefaultMigrations': '%kernel.project_dir%/src/Default/Infrastructure/DoctrineMigrations'
+        'UserMigrations': '%kernel.project_dir%/src/User/Infrastructure/DoctrineMigrations'
 
     # List of additional migration classes to be loaded, optional
     # migrations:

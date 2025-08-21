@@ -23,7 +23,5 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
     public function urlProvider(): \Generator
     {
         yield ['/'];
-        yield ['/menu'];
-        yield ['/restaurant'];
     }
 }

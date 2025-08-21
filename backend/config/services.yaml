@@ -22,10 +22,7 @@ services:
     App\Default\Application\Controller\DefaultController:
         public: true
         tags: ['controller.service_arguments']
-    App\Menu\Application\Controller\MenuController:
-        public: true
-        tags: ['controller.service_arguments']
-    App\Restaurant\Application\Controller\RestaurantController:
+    App\User\Application\Controller\UserController:
         public: true
         tags: ['controller.service_arguments']
     # add more service definitions when explicit configuration is needed

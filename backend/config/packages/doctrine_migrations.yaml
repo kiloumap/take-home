@@ -4,7 +4,7 @@ doctrine_migrations:
         'Migrations': '%kernel.project_dir%/DoctrineMigrations'
         'DefaultMigrations': '%kernel.project_dir%/src/Default/Infrastructure/DoctrineMigrations'
         'UserMigrations': '%kernel.project_dir%/src/User/Infrastructure/DoctrineMigrations'
-
+        'ProductMigrations': '%kernel.project_dir%/src/Product/Infrastructure/Persistence/Doctrine/Migrations'
     # List of additional migration classes to be loaded, optional
     # migrations:
        # - 'App\Migrations\Version123'

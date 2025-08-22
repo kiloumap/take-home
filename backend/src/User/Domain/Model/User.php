@@ -21,6 +21,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setId(Uuid $id): Uuid
     {
         $this->id = $id;
+        return $this->id;
     }
     public function getId(): Uuid
     {

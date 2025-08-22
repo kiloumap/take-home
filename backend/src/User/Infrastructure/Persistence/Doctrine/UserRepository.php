@@ -51,7 +51,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     public function findById(UserId $userId): ?User
     {
-        $this->createQueryBuilder('user')
+        return $this->createQueryBuilder('user')
             ->where('user.id = :id')
             ->setParameter('id', $userId)
             ->getQuery()
@@ -60,7 +60,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     public function findByEmail(Email $email): ?User
     {
-        $this->createQueryBuilder('user')
+        return $this->createQueryBuilder('user')
             ->where('user.email = :email')
             ->setParameter('email', $email)
             ->getQuery()
@@ -69,7 +69,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     public function delete(User $user): void
     {
-        $this->delete($user);
+        $this->getEntityManager()->remove($user);
         $this->getEntityManager()->flush();
     }
 }

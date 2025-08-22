@@ -12,3 +12,9 @@ api_login_check:
   path: /api/login
   controller: lexik_jwt_authentication.controller::login
   methods: ['POST']
+product:
+  resource:
+    path: ../src/Product/Application/Controller/
+    namespace: App\Product\Application\Controller
+  type: attribute
+  prefix: /api/product

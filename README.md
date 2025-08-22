@@ -1,30 +1,52 @@
-# Foody
+# Take-Home
 
 ### https://localhost
 
 ## Architecture
-**Exemple  : Hexagonale Architecture  (BC - Bounded Context)**
+**Hexagonale Architecture (BC - Bounded Context)**
 
 ```
 src/
-├── DdefaultContext/
+├── Default/
 │   ├── Application/
 │   │   ├── Command/
 │   │   ├── Query/
-│   │   ├── Service/
-│   │   └── ...
+│   │   └── Controller/
 │   ├── Domain/
 │   │   ├── Model/
 │   │   ├── Repository/
 │   │   ├── Service/
-│   │   ├── Port/
-│   │   └── ...
+│   │   └── Port/
 │   └── Infrastructure/
 │       ├── Persistence/
-│       │   ├── Doctrine/
-│       │   └── ...
-│       ├── Messaging/
-│       │   ├── RabbitMQ/
-│       │   └── ...
-│       └── ...
+│       └── Doctrine/
+├── Shared/
+│   ├── Application/
+│   │   ├── Command/
+│   │   └── Controller/
+│   ├── Domain/
+│   │   └── ValueObject/
+│   └── Infrastructure/
+│       └── Persistence/
+│           ├── DoctrineMigrations/
+│           ├── Doctrine/
+│           │   ├── Mapping
+│           │   └── Type
+│           ├── InMemory/
+│           └── Security
+├── User/
+│   ├── Application/
+│   │   ├── Command/
+│   │   ├── Request/
+│   │   └── Controller/
+│   ├── Domain/
+│   │   ├── Model/
+│   │   ├── Repository/
+│   │   └── Service/
+│   └── Infrastructure/
+│       └── Persistence/
+│           ├── DoctrineMigrations/
+│           └── Doctrine/
+│           │   └── Mapping
+│           └── Security
 ```

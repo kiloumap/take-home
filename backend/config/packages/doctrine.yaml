@@ -9,6 +9,8 @@ doctrine:
         mapping_types:
             enum: string
         profiling_collect_backtrace: '%kernel.debug%'
+        types:
+            email_vo: App\Shared\Infrastructure\Persistence\Doctrine\Type\EmailType
     orm:
         auto_generate_proxy_classes: true
         enable_lazy_ghost_objects: true

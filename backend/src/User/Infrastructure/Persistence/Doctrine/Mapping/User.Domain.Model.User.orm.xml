@@ -4,13 +4,13 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                   https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="App\User\Domain\Model\User" table="user" repository-class="App\User\Infrastructure\Persistence\Doctrine\UserRepository">
+    <entity name="App\User\Domain\Model\User" table="`user`" repository-class="App\User\Infrastructure\Persistence\Doctrine\UserRepository">
 
         <id name="id" type="uuid">
-            <generator strategy="AUTO" />
+            <generator strategy="NONE" />
         </id>
 
-        <field name="email" type="string" length="180" unique="true" />
+        <field name="email" type="email_vo" length="180" unique="true" />
 
         <field name="roles" type="json" />
         <field name="password" type="string" />

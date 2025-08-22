@@ -11,11 +11,17 @@ use Symfony\Component\Uid\Uuid;
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     private array $roles = [];
+    public Uuid $id;
 
-    public function __construct(private readonly Uuid $id, private Email $email, private string $password)
+    public function __construct(private Email $email, private string $password)
     {
+        $this->id = Uuid::v4();
     }
 
+    public function setId(Uuid $id): Uuid
+    {
+        $this->id = $id;
+    }
     public function getId(): Uuid
     {
         return $this->id;
@@ -46,6 +52,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setRoles(array $roles): self
     {
+        $roles = ['ROLE_USER'];
         $this->roles = $roles;
 
         return $this;

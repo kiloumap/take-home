@@ -12,6 +12,7 @@
         "doctrine/doctrine-bundle": "^2.15",
         "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/orm": "^3.0",
+        "lexik/jwt-authentication-bundle": "*",
         "symfony/console": "7.3.*",
         "symfony/dotenv": "7.3.*",
         "symfony/flex": "^2",
@@ -19,7 +20,9 @@
         "symfony/password-hasher": "7.3.*",
         "symfony/runtime": "7.3.*",
         "symfony/security-bundle": "7.3.*",
+        "symfony/serializer-pack": "*",
         "symfony/uid": "7.3.*",
+        "symfony/validator": "*",
         "symfony/yaml": "7.3.*"
     },
     "config": {

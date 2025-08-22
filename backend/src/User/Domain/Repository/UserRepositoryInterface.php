@@ -6,7 +6,6 @@ namespace App\User\Domain\Repository;
 use App\Shared\Domain\ValueObject\Email;
 use App\Shared\Domain\ValueObject\UserId;
 use App\User\Domain\Model\User;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 interface UserRepositoryInterface
 {

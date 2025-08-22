@@ -9,7 +9,7 @@
             <generator strategy="NONE"/>
         </id>
 
-        <field name="name" type="string" column="name" length="255" nullable="false"/>
+        <field name="name" type="string" column="name" length="255" nullable="false" unique="true"/>
         <field name="description" type="string" column="description" length="255" nullable="false"/>
         <field name="createdAt" type="datetime_immutable" column="created_at" nullable="false"/>
         <field name="updatedAt" type="datetime_immutable" column="updated_at" nullable="true"/>

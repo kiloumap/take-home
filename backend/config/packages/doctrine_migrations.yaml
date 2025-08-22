@@ -1,10 +1,7 @@
 doctrine_migrations:
     # List of namespace/path pairs to search for migrations, at least one required
     migrations_paths:
-        'Migrations': '%kernel.project_dir%/DoctrineMigrations'
-        'DefaultMigrations': '%kernel.project_dir%/src/Default/Infrastructure/DoctrineMigrations'
-        'UserMigrations': '%kernel.project_dir%/src/User/Infrastructure/DoctrineMigrations'
-        'ProductMigrations': '%kernel.project_dir%/src/Product/Infrastructure/Persistence/Doctrine/Migrations'
+        'Migrations': '%kernel.project_dir%/src/Shared/Infrastructure/Persistence/Doctrine/Migration'
     # List of additional migration classes to be loaded, optional
     # migrations:
        # - 'App\Migrations\Version123'

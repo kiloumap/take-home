@@ -20,9 +20,6 @@ services:
             - '../src/*/Domain/Model/'
             - '../src/Kernel.php'
             - '../src/Shared/Infrastructure/Persistence/Doctrine/Migration/'
-    App\Default\Application\Controller\DefaultController:
-        public: true
-        tags: ['controller.service_arguments']
     App\User\Application\Controller\UserController:
         public: true
         tags: ['controller.service_arguments']

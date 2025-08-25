@@ -3,13 +3,13 @@ declare(strict_types=1);
 
 namespace App\Product\Application\Request;
 
-class AddProductRequest
+readonly class AddProductRequest
 {
     public function __construct(
-        public readonly string $name,
-        public readonly string $description,
+        public string $name,
+        public string $description,
         /** @var PricingOptionData[] */
-        public readonly mixed $pricingOption,
+        public mixed $pricingOption,
     ) {
     }
 }

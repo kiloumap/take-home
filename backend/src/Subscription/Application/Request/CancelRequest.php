@@ -6,10 +6,10 @@ namespace App\Subscription\Application\Request;
 
 use App\Product\Application\Request\PricingOptionData;
 
-class CancelRequest
+readonly class CancelRequest
 {
     public function __construct(
-        public readonly string $productName,
+        public string $productName,
     ) {
     }
 }

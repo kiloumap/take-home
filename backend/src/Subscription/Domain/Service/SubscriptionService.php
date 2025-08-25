@@ -4,28 +4,28 @@ declare(strict_types=1);
 
 namespace App\Subscription\Domain\Service;
 
-use App\Product\Domain\Exception\PriceNotFoundException;
-use App\Product\Domain\Exception\ProductNotFoundException;
 use App\Product\Domain\Model\PricingOption;
 use App\Product\Domain\Model\Product;
-use App\Product\Domain\Repository\ProductRepositoryInterface;
+use App\Product\Domain\Service\ProductService;
+use App\Product\Infrastructure\Exception\PriceNotFoundException;
+use App\Product\Infrastructure\Exception\ProductNotFoundException;
 use App\Subscription\Domain\Exception\NoActiveSubscriptionException;
 use App\Subscription\Domain\Model\Subscription;
 use App\Subscription\Domain\Repository\SubscriptionRepositoryInterface;
 use App\User\Domain\Model\User;
 use DateTimeImmutable;
 
-class SubscriptionService
+readonly class SubscriptionService
 {
     public function __construct(
-        private ProductRepositoryInterface $productRepository,
+        private ProductService $productService,
         private SubscriptionRepositoryInterface $subscriptionRepository,
     ) {
     }
 
     public function subscribe(User $user, string $productName, string $pricingOptionName): Subscription
     {
-        $product = $this->productRepository->findByName($productName);
+        $product = $this->productService->findByName($productName);
 
         if (!$product) {
             throw new ProductNotFoundException($productName);
@@ -59,7 +59,7 @@ class SubscriptionService
 
     public function cancelActiveSubscription(User $user, string $productName): Subscription
     {
-        $product = $this->productRepository->findByName($productName);
+        $product = $this->productService->findByName($productName);
         if (!$product) {
             throw new ProductNotFoundException($productName);
         }

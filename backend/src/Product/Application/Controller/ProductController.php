@@ -12,9 +12,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ProductController
+final readonly class ProductController
 {
-    public function __construct(private readonly ProductService $productService)
+    public function __construct(private ProductService $productService)
     {
     }
 

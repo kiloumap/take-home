@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\User\Application\Controller;
 
+use App\User\Application\Request\LoginUserRequest;
 use App\User\Application\Request\RegisterUserRequest;
 use App\User\Domain\Service\UserService;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
@@ -10,8 +11,9 @@ use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 
-readonly class UserController
+final readonly class UserController
 {
     public function __construct(
         private UserService $userService,

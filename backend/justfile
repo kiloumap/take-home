@@ -5,6 +5,9 @@ default:
 build:
 	docker-compose build
 
+init-db:
+    docker-compose exec php php bin/console doctrine:database:create
+
 # Start the Docker containers
 start:
 	docker-compose up -d
@@ -15,15 +18,15 @@ stop:
 
 # Install Composer dependencies
 composer-install:
-	docker-compose run --rm php composer install
+	docker-compose run --rm php composer install --no-plugins
 
 # Update Composer dependencies
 composer-update:
-	docker-compose run --rm php composer update
+	docker-compose run --rm php composer update --no-plugins
 
 # Run Symfony migrations
 migrate:
-	docker-compose run --rm php bin/console doctrine:migrations:migrate
+	docker-compose run --rm php bin/console doctrine:migrations:migrate --no-interaction
 
 # Clear Symfony cache
 clear-cache:
@@ -44,7 +47,3 @@ nginx-logs:
 # Tail the Symfony logs
 symfony-logs:
 	docker-compose exec php tail -f var/log/dev.log
-
-# Run Composer commands
-composer:
-	docker-compose run --rm php composer $(filter-out $@,$(MAKECMDGOALS))

@@ -6,7 +6,6 @@ namespace App\Product\Infrastructure\Persistence\Doctrine\Repository;
 
 use App\Product\Domain\Model\Product;
 use App\Product\Domain\Repository\ProductRepositoryInterface;
-use App\Shared\Domain\ValueObject\ProductId;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

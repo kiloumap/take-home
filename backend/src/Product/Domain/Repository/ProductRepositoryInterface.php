@@ -10,14 +10,5 @@ interface ProductRepositoryInterface
 {
     public function save(Product $product): void;
 
-    public function findById(ProductId $productId): ?Product;
-
     public function findByName(string $name): ?Product;
-
-    public function delete(Product $product): void;
-
-    /**
-     * @return Product[]
-     */
-    public function findAll(): array;
 }

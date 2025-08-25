@@ -20,7 +20,6 @@ class ProductService
         $product = new Product(
             $request->name,
             $request->description,
-
         );
 
         foreach ($request->pricingOption as $pricingOption) {

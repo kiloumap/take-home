@@ -32,6 +32,12 @@ doctrine:
                 prefix: 'App\User'
                 alias: User
                 is_bundle: false
+            Subscription:
+                type: xml
+                dir: '%kernel.project_dir%/src/Subscription/Infrastructure/Persistence/Doctrine/Mapping'
+                prefix: 'App\Subscription'
+                alias: Subscription
+                is_bundle: false
         dql:
             numeric_functions:
                 uuid: 'Ramsey\Uuid\Doctrine\Functions\UuidFunction'

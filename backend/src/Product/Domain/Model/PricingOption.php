@@ -68,6 +68,10 @@ class PricingOption
         return $this->billingPeriod->getDisplayName();
     }
 
+    public function getBillingDurationInDays(): ?int
+    {
+        return $this->billingPeriod->getDurationInDays();
+    }
     public function setBillingPeriod(BillingPeriod $billingPeriod): void
     {
         $this->billingPeriod = $billingPeriod;

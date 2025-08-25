@@ -18,3 +18,9 @@ product:
     namespace: App\Product\Application\Controller
   type: attribute
   prefix: /api/product
+subscription:
+  resource:
+    path: ../src/Subscription/Application/Controller/
+    namespace: App\Subscription\Application\Controller
+  type: attribute
+  prefix: /api/subscription

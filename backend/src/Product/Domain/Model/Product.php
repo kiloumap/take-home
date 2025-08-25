@@ -18,8 +18,8 @@ class Product
     private ?DateTimeImmutable $updatedAt = null;
 
     public function __construct(
-        private string $name,
-        private string $description,
+        private readonly string $name,
+        private readonly string $description,
     ) {
         $this->id = Uuid::v4();
         $this->createdAt = new DateTimeImmutable();
@@ -41,19 +41,9 @@ class Product
         return $this->name;
     }
 
-    public function setName(string $name): void
-    {
-        $this->name = $name;
-    }
-
     public function getDescription(): string
     {
         return $this->description;
-    }
-
-    public function setDescription(string $description): void
-    {
-        $this->description = $description;
     }
 
     public function getPricingOptions(): Collection
@@ -91,5 +81,10 @@ class Product
         if (!$this->pricingOptions->contains($pricingOption)) {
             $this->pricingOptions->add($pricingOption);
         }
+    }
+
+    public function getPricingOptionByName(string $pricingOptionName): ?PricingOption
+    {
+        return $this->pricingOptions->filter(fn(PricingOption $pricingOption) => $pricingOption->getName() === $pricingOptionName)->first();
     }
 }

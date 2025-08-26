@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: xdebug  # Important pour le coverage
+
+      - name: Install dependencies
+        working-directory: ./backend
+        run: composer install
+
+      - name: Run tests
+        working-directory: ./backend
+        run: ./vendor/bin/phpunit
+
+      # Nouveau : génération du coverage
+      - name: Generate coverage report
+        working-directory: ./backend
+        run: ./vendor/bin/phpunit --coverage-html coverage
+
+      # Nouveau : déploiement sur GitHub Pages (seulement sur main)
+      - name: Deploy coverage to GitHub Pages
+        if: github.ref == 'refs/heads/main'  # Seulement sur main
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./backend/coverage
+          destination_dir: backend/coverage

@@ -43,3 +43,4 @@ class InMemoryUserRepository implements UserRepositoryInterface
         return $this->users;
     }
 }
+

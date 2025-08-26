@@ -37,7 +37,9 @@
 
     <coverage>
         <report>
-            <html outputDirectory="var/coverage/html" />
+            <html outputDirectory="coverage/html" />
+            <text outputFile="coverage/coverage.txt" />
+            <clover outputFile="coverage.xml"/>
         </report>
     </coverage>
 </phpunit>

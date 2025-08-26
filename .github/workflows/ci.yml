@@ -2,39 +2,55 @@ name: CI
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ master, develop ]
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
+
+permissions:
+  contents: write
 
 jobs:
   tests:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.4'
-          extensions: xdebug  # Important pour le coverage
+          extensions: xdebug
+          coverage: xdebug
 
-      - name: Install dependencies
+      - name: Install dependencies (no scripts)
         working-directory: ./backend
-        run: composer install
+        run: composer install --no-scripts --prefer-dist --no-progress --no-interaction
 
-      - name: Run tests
+      - name: Create minimal .env for CI
         working-directory: ./backend
-        run: ./vendor/bin/phpunit
+        run: |
+          cat > .env << 'EOF'
+          APP_ENV=test
+          APP_SECRET=dummy
+          DATABASE_URL=sqlite:///:memory:
+          XDEBUG_MODE=coverage
+          EOF
 
-      - name: Generate coverage report
+      - name: Run tests with coverage
         working-directory: ./backend
+        env:
+          APP_ENV: test
+          XDEBUG_MODE: coverage
         run: ./vendor/bin/phpunit --coverage-html coverage
-
+      - name: Upload coverage artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-html
+          path: ./backend/coverage/html
       - name: Deploy coverage to GitHub Pages
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/master'
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir:  ./backend/var/coverage/html
+          publish_dir: ./backend/coverage/html
           destination_dir: backend/coverage

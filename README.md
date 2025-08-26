@@ -112,6 +112,9 @@ src/
 │        └── Security
 ```
 
+### Coverage: 
+📊 [View Coverage Report](https://kiloumap.github.io/take-home/backend/coverage/)
+
 ### AI Usage:
 
 I mostly use AI from PhpStorm with GitHub Copilot to improve auto-completion and generate the accessor, XML files, etc..

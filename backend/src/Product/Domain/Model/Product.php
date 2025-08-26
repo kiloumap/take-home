@@ -85,6 +85,11 @@ class Product
 
     public function getPricingOptionByName(string $pricingOptionName): ?PricingOption
     {
-        return $this->pricingOptions->filter(fn(PricingOption $pricingOption) => $pricingOption->getName() === $pricingOptionName)->first();
+        $price = $this->pricingOptions->filter(fn(PricingOption $pricingOption) => $pricingOption->getName() === $pricingOptionName)->first();
+        if(!empty($price)) {
+            return $price;
+        }
+
+        return null;
     }
 }

@@ -2,12 +2,12 @@
 declare(strict_types=1);
 
 
-namespace App\Product\Domain\Exception;
+namespace App\Product\Infrastructure\Exception;
 
-use DomainException;
+use InvalidArgumentException;
 use Throwable;
 
-class ProductNotFoundException extends DomainException
+class ProductNotFoundException extends InvalidArgumentException
 {
     public function __construct(string $productName = "", int $code = 0, ?Throwable $previous = null)
     {

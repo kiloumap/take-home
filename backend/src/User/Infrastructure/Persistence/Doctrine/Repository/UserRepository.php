@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\User\Infrastructure\Persistence\Doctrine;
+namespace App\User\Infrastructure\Persistence\Doctrine\Repository;
 
 use App\Shared\Domain\ValueObject\Email;
 use App\Shared\Domain\ValueObject\UserId;

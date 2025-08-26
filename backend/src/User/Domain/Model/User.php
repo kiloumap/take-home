@@ -12,8 +12,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     private array $roles = [];
     public Uuid $id;
+    private string $password;
 
-    public function __construct(private Email $email, private string $password)
+    public function __construct(private Email $email)
     {
         $this->id = Uuid::v4();
     }
@@ -53,7 +54,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setRoles(array $roles): self
     {
-        $roles = ['ROLE_USER'];
         $this->roles = $roles;
 
         return $this;
@@ -74,19 +74,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @see UserInterface
-     */
-    public function getSalt(): ?string
-    {
-        return null;
-    }
-
-    /**
-     * @see UserInterface
-     */
     public function eraseCredentials(): void
     {
-        // If you store any temporary, sensitive data on the user, clear it here
+        // TODO: Implement eraseCredentials() method.
     }
 }

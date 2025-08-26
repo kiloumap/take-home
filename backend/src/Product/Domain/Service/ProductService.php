@@ -8,11 +8,10 @@ use App\Product\Application\Request\AddProductRequest;
 use App\Product\Domain\Model\PricingOption;
 use App\Product\Domain\Model\Product;
 use App\Product\Domain\Repository\ProductRepositoryInterface;
-use Symfony\Component\Validator\Constraints\Collection;
 
-class ProductService
+readonly class ProductService
 {
-    public function __construct(private readonly ProductRepositoryInterface $productRepository)
+    public function __construct(private ProductRepositoryInterface $productRepository)
     {
     }
     public function add(AddProductRequest $request): Product
@@ -35,5 +34,9 @@ class ProductService
         $this->productRepository->save($product);
 
         return $product;
+    }
+
+    public function findByName(string $name): ?Product{
+        return $this->productRepository->findByName($name);
     }
 }

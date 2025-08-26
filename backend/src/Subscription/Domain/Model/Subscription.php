@@ -97,7 +97,7 @@ class Subscription
         return $this->startDate;
     }
 
-    public function getEndDate(): DateTimeImmutable
+    public function getEndDate(): ?DateTimeImmutable
     {
         return $this->endDate;
     }

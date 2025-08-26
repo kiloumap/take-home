@@ -5,13 +5,15 @@ namespace App\User\Application\Controller;
 
 use App\User\Application\Request\RegisterUserRequest;
 use App\User\Domain\Service\UserService;
+use DomainException;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Annotation\Route;
 
-readonly class UserController
+final readonly class UserController
 {
     public function __construct(
         private UserService $userService,
@@ -23,11 +25,16 @@ readonly class UserController
     public function register(
         #[MapRequestPayload] RegisterUserRequest $request
     ): JsonResponse {
-        $user = $this->userService->register($request);
+        try {
+            $user = $this->userService->register($request);
+        } catch (DomainException $e) {
+            return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_BAD_REQUEST);
+        }
 
         $token = $this->jwtManager->create($user);
 
         return new JsonResponse([
+            'message' => 'User created',
             'user' => [
                 'id' => $user->getId()->toString(),
                 'email' => $user->getUserIdentifier(),
@@ -49,7 +56,7 @@ readonly class UserController
         $user = $this->security->getUser();
 
         if (!$user) {
-            return new JsonResponse(['error' => 'Not authenticated'], 401);
+            return new JsonResponse(['error' => 'Not authenticated'], Response::HTTP_UNAUTHORIZED);
         }
 
         return new JsonResponse([

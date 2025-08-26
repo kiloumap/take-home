@@ -27,16 +27,14 @@ jobs:
         working-directory: ./backend
         run: ./vendor/bin/phpunit
 
-      # Nouveau : génération du coverage
       - name: Generate coverage report
         working-directory: ./backend
         run: ./vendor/bin/phpunit --coverage-html coverage
 
-      # Nouveau : déploiement sur GitHub Pages (seulement sur main)
       - name: Deploy coverage to GitHub Pages
-        if: github.ref == 'refs/heads/main'  # Seulement sur main
+        if: github.ref == 'refs/heads/main'
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./backend/coverage
+          publish_dir:  ./backend/var/coverage/html
           destination_dir: backend/coverage

@@ -20,15 +20,31 @@ services:
             - '../src/*/Domain/Model/'
             - '../src/Kernel.php'
             - '../src/Shared/Infrastructure/Persistence/Doctrine/Migration/'
-    App\User\Application\Controller\UserController:
-        public: true
-        tags: ['controller.service_arguments']
-    App\Product\Application\Controller\ProductController:
-        public: true
-        tags: ['controller.service_arguments']
-    App\Subscription\Application\Controller\SubscriptionController:
-        public: true
-        tags: ['controller.service_arguments']
+    App\User\Application\Controller\:
+        resource: '../src/User/Application/Controller/'
+        tags: [ 'controller.service_arguments' ]
+    App\Product\Application\Controller\:
+        resource: '../src/Product/Application/Controller/'
+        tags: [ 'controller.service_arguments' ]
+    App\Subscription\Application\Controller\:
+        resource: '../src/Subscription/Application/Controller/'
+        tags: [ 'controller.service_arguments' ]
+
+
+    App\Product\Domain\Repository\ProductRepositoryInterface:
+        alias: App\Product\Infrastructure\Persistence\Doctrine\Repository\ProductRepository
+    App\User\Domain\Repository\UserRepositoryInterface:
+        alias: App\User\Infrastructure\Persistence\Doctrine\Repository\UserRepository
+    App\Subscription\Domain\Repository\SubscriptionRepositoryInterface:
+        alias: App\Subscription\Infrastructure\Persistence\Doctrine\Repository\SubscriptionRepository
     App\User\Infrastructure\Security\JsonLoginAuthenticator:
         autowire: true
         autoconfigure: true
+when@test:
+    services:
+        App\Product\Domain\Repository\ProductRepositoryInterface:
+            alias: App\Product\Infrastructure\Persistence\InMemory\Infrastructure\InMemoryProductRepository
+        App\Subscription\Domain\Repository\SubscriptionRepositoryInterface:
+            alias: App\Subscription\Infrastructure\Persistence\InMemory\Infrastructure\InMemorySubscriptionRepository
+        App\User\Domain\Repository\UserRepositoryInterface:
+            alias: App\User\Infrastructure\Persistence\InMemory\Infrastructure\InMemoryUserRepository

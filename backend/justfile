@@ -34,7 +34,7 @@ clear-cache:
 
 # Run Symfony tests
 run-tests:
-	docker-compose run --rm php bin/phpunit
+	docker-compose run --rm php bin/phpunit --coverage-text
 
 # Access the Symfony container shell
 shell:

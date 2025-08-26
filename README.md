@@ -26,6 +26,11 @@ _That was a good opportunity to update php 8.2 => 8.4, symfony 6.3 => 7.3..._
 2. `docker-compose exec php php bin/console doctrine:database:create`
 3. `docker-compose run --rm php bin/console doctrine:migrations:migrate --no-interaction`
 
+#### Tests
+`just run-test`
+`docker-compose run --rm php bin/phpunit --coverage-html coverage`
+`docker-compose run --rm php bin/phpunit --coverage-text`
+
 ## API Endpoint
 
 Except `api/register` and `api/login`, all the routes are protected with a JWT token.
@@ -112,13 +117,19 @@ src/
 │        └── Security
 ```
 
-### Coverage: 
-📊 [View Coverage Report](https://kiloumap.github.io/take-home/backend/coverage/)
-
 ### AI Usage:
 
-I mostly use AI from PhpStorm with GitHub Copilot to improve auto-completion and generate the accessor, XML files, etc..
-I also used Claude AI to fix some issues after the version's upgrade, but as it is not update with the last version for
-php, symfony, it failed.
-Finally, I ask Claude AI for new features on Symfony, like `#[MapRequestPayload]` or the update on `security` since I
-did not use symfony since 5.4
+mainly use AI in PhpStorm with GitHub Copilot to improve auto-completion and generate accessors, XML files, and similar boilerplate.
+I also used Claude AI to fix some issues after upgrading versions, but since it is not up to date with the latest PHP and Symfony releases, it failed in some cases.
+I occasionally used it to get quick help on GitHub CI.
+Finally, I asked Claude AI about new features in Symfony, such as `#[MapRequestPayload]` or updates in the `security` component, since I had not worked with Symfony since version 5.4.
+
+### Code Coverage
+I ran some quick tests, mainly on the services.
+Those can easily reach 100% coverage, while the overall codebase sits at around 50%.
+I also decided to use only in-memory persistence, whereas I would normally use an actual database to fully test persistence.
+They can be ran with
+`just run-test`
+or
+`docker-compose run --rm php bin/phpunit --coverage-html coverage`
+![img.png](img.png)

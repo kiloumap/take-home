@@ -1,0 +1,113 @@
+name: CI
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: test_db
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          path: backend
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.4
+          extensions: mbstring, xml, ctype, iconv, intl, pdo, pdo_pgsql, dom, filter, gd, json, zip
+          coverage: xdebug
+
+      - name: Get Composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache Composer packages
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - name: Create .env.test file
+        run: |
+          cat > .env.test << 'EOF'
+          APP_ENV=test
+          APP_SECRET=test_secret_key_for_ci
+          DATABASE_URL="postgresql://postgres:postgres@127.0.0.1:5432/test_db"
+          KERNEL_CLASS='App\Kernel'
+          SYMFONY_DEPRECATIONS_HELPER=999999
+          PANTHER_APP_ENV=panther
+          EOF
+
+      - name: Install dependencies
+        run: |
+          composer install --prefer-dist --no-progress --no-interaction --optimize-autoloader
+
+      - name: Create database and run migrations
+        run: |
+          php bin/console doctrine:database:create --env=test --if-not-exists
+          php bin/console doctrine:migrations:migrate --env=test --no-interaction
+
+      - name: Run PHPUnit tests
+        run: |
+          mkdir -p var/coverage
+          XDEBUG_MODE=coverage php bin/phpunit --coverage-html var/coverage --coverage-clover var/coverage/clover.xml
+
+      - name: Upload coverage reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: var/coverage/
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          file: ./var/coverage/clover.xml
+          flags: unittests
+          name: codecov-umbrella
+
+  docker:
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t myapp .
+
+      - name: Test Docker container
+        run: |
+          # Start container in detached mode
+          docker run -d --name test-container -p 8000:80 myapp
+          sleep 10
+          
+          # Basic health check
+          curl -f http://localhost:8000/health || exit 1
+          
+          # Cleanup
+          docker stop test-container
+          docker rm test-container
